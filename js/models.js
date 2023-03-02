@@ -78,6 +78,11 @@ class StoryList {
   }
 }
 
+// TODO: event listener on submit which calls a conductor
+// conductor function creates author name, title, url object and calls addStory
+// user is currentUser
+// addStory makes a POST request, creates a Story instance, and call putStoriesOnPage
+
 
 /******************************************************************************
  * User: a user in the system (only used to represent the current user)
