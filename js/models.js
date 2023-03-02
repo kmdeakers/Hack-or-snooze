@@ -73,10 +73,45 @@ class StoryList {
    * Returns the new Story instance
    */
 
-  async addStory( /* user, newStory */) {
+  async addStory(user, newStory) {
+    console.debug('addStory')
     // UNIMPLEMENTED: complete this function!
+    const response = await axios ({
+      url: `${BASE_URL}/stories`,
+      method: "POST",
+      data: {
+        token: `${localStorage.getItem('token')}`,
+        story: {
+          author: newStory.author,
+          title: newStory.title,
+          url: newStory.url}}
+      })
+      console.log('response', response)
+    // const newStoryData = response.data.data.story;
+    console.log('response.data.data.story', response.data.story)
+    const {storyId, title, author, url, username, createdAt} = response.data.story;  
+    return new Story({storyId, title, author, url, username, createdAt});  
   }
+
+  getStoryDataAndAddStory () {
+    const storyDataInput = { 
+      author: $('#create-author').val(),
+      title:  $('#create-title').val(),
+      url: $('#create-url').val()
+     }
+    
+    addStory (currentUser, storyDataInput); 
+  }
+
+  // $('#submit-form').on('submit', getStoryDataAndAddStory); 
+
+
+  
+    
+  
 }
+
+
 
 // TODO: event listener on submit which calls a conductor
 // conductor function creates author name, title, url object and calls addStory
