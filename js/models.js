@@ -80,40 +80,29 @@ class StoryList {
       url: `${BASE_URL}/stories`,
       method: "POST",
       data: {
-        token: `${localStorage.getItem('token')}`,
+        token: user.loginToken,
         story: {
           author: newStory.author,
           title: newStory.title,
           url: newStory.url}}
       })
-      console.log('response', response)
+      // console.log('response', response)
     // const newStoryData = response.data.data.story;
-    console.log('response.data.data.story', response.data.story)
+    // console.log('response.data.data.story', response.data.story)
     const {storyId, title, author, url, username, createdAt} = response.data.story;  
-    return new Story({storyId, title, author, url, username, createdAt});  
+
+    const story = new Story({storyId, title, author, url, username, createdAt}); 
+        this.stories.unshift(story);
+
+    return story;
   }
 
-  getStoryDataAndAddStory () {
-    const storyDataInput = { 
-      author: $('#create-author').val(),
-      title:  $('#create-title').val(),
-      url: $('#create-url').val()
-     }
-    
-    addStory (currentUser, storyDataInput); 
-  }
-
-  // $('#submit-form').on('submit', getStoryDataAndAddStory); 
-
-
-  
-    
   
 }
 
 
 
-// TODO: event listener on submit which calls a conductor
+// event listener on submit which calls a conductor
 // conductor function creates author name, title, url object and calls addStory
 // user is currentUser
 // addStory makes a POST request, creates a Story instance, and call putStoriesOnPage

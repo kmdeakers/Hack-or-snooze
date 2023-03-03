@@ -32,7 +32,17 @@ $navLogin.on("click", navLoginClick);
 function updateNavOnLogin() {
   console.debug("updateNavOnLogin");
   $(".main-nav-links").show();
+  $navSubmit.show();
   $navLogin.hide();
   $navLogOut.show();
   $navUserProfile.text(`${currentUser.username}`).show();
 }
+
+/** When a user clicks submit, show the submit form. */
+
+function showSubmitFormOnSubmitClick() {
+  console.debug("showSubmitFormOnSubmitClick");
+  $submitForm.show();
+}
+
+$body.on("click", "#nav-submit", showSubmitFormOnSubmitClick)
