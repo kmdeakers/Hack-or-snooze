@@ -223,4 +223,36 @@ class User {
       return null;
     }
   }
+
+  /**  */
+  async addFavorite (story){
+    console.debug("addFavorite");
+    console.log("storyId: ", story.storyId, "loginToken: ", this.loginToken);
+    const response = await axios({
+      url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+      method: "POST",
+      params: {token: this.loginToken}
+    });
+
+    this.favorites.push(story);
+  }
+
+
+  
+  /**  */
+  async removeFavorite (story) {
+    console.debug("removeFavorite");
+    const response = await axios({
+      url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+      method: "DELETE",
+      params: {token: this.loginToken}
+    });
+
+    this.favorites.pop(story);
+  } 
+
+
+  // send a API request to update the favorites list
+    // requires token; https://baseURL/users/[username]/favorites/[storyId]
+  // add/remove the story from this User's favorite
 }

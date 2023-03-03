@@ -46,3 +46,12 @@ function showSubmitFormOnSubmitClick() {
 }
 
 $body.on("click", "#nav-submit", showSubmitFormOnSubmitClick);
+
+
+/** When a user is logged in, shows stars next to stories */
+
+function addStarsToUI() {
+  console.debug("addFavoriteStars");
+  $(".bi-star").show();
+}
+

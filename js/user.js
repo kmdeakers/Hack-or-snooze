@@ -21,7 +21,7 @@ async function login(evt) {
   // which we'll make the globally-available, logged-in user.
   currentUser = await User.login(username, password);
 
-  $loginForm.trigger("reset");  // TODO: What does this do?
+  $loginForm.trigger("reset");
 
   saveUserCredentialsInLocalStorage();
   updateUIOnUserLogin();
@@ -103,6 +103,7 @@ function saveUserCredentialsInLocalStorage() {
 /** When a user signs up or registers, we want to set up the UI for them:
  *
  * - show the stories list
+ * - add stars to stories
  * - update nav bar options for logged-in user
  * - generate the user profile part of the page
  */
@@ -112,5 +113,11 @@ function updateUIOnUserLogin() {
 
   $allStoriesList.show();
 
+  addStarsToUI();
+
   updateNavOnLogin();
 }
+
+
+$body.on("click", ".bi-star", this.addFavorite);
+
