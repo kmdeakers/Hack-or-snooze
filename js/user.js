@@ -116,8 +116,39 @@ function updateUIOnUserLogin() {
   addStarsToUI();
 
   updateNavOnLogin();
+
+  starUserFavorites (currentUser.favorites);
 }
 
 
-$body.on("click", ".bi-star", this.addFavorite);
+$body.on("click", ".bi-star", handleEmptyStarClick);
+
+function handleEmptyStarClick (evt) {
+  console.log('clicked add fav')
+  const parentLi = evt.target.closest("li");
+  console.log('evt.target', evt.target)
+  // console.log('faveStoryId', favStoryId)
+  // currentUser.addFavorite(favStoryId);
+  $(evt.target).removeClass('bi-star');
+  $(evt.target).addClass('bi-star-fill');
+  $(evt.target).attr('data-favorite')
+  console.log('fill star');
+}
+
+$body.on("click", ".bi-star-fill", handleFullStarClick);
+
+function handleFullStarClick (evt) {
+  console.log('clicked add fav')
+  const parentLi = evt.target.closest("li");
+  console.log('evt.target', evt.target)
+  // console.log('faveStoryId', favStoryId)
+  // currentUser.addFavorite(favStoryId);
+  $(evt.target).removeClass('bi-star-fill');
+  $(evt.target).addClass('bi-star');
+  $(evt.target).removerAttr('data-favorite');
+
+  console.log('fill star');
+}
+
+
 
