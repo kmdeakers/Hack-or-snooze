@@ -50,29 +50,31 @@ function putStoriesOnPage() {
 
   $allStoriesList.show();
 }
+//expand doc string
+/** Create new story from form data. Create new story markup and 
+ * append to "#all-stories-list"
+ */
 
-/** Get input from story submit form and passes in that data to a call of addStory */
-
-async function getStoryDataAndAddStory (event) {
+async function createStoryAndAddToPage(event) {
   event.preventDefault();
-  console.debug("getStoryDataAndAddStory");
+  console.debug("createStoryAndAddToPage");
 
-  const storyDataInput = { 
+  const storyDataInput = {
     author: $('#create-author').val(),
-    title:  $('#create-title').val(),
+    title: $('#create-title').val(),
     url: $('#create-url').val()
-   }
-  
-  const newStory = await storyList.addStory (currentUser, storyDataInput);
-  // storyList = await StoryList.getStories();
+  }
 
+  const newStory = await storyList.addStory(currentUser, storyDataInput);
+  const newStoryMarkup = generateStoryMarkup(newStory);
+  $("#all-stories-list").prepend(newStoryMarkup)
   console.log("storyList", storyList);
 
   $submitForm.hide();
 
-  putStoriesOnPage();
+  // putStoriesOnPage();
 
 }
-
-
-$('.stories-container').on('submit', getStoryDataAndAddStory); 
+// pass new Story instance in generateStoryMarkup
+//TODO: updated .stories-container 
+$('#submit-form').on('submit', createStoryAndAddToPage); 

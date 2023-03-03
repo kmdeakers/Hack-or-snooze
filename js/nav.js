@@ -45,4 +45,4 @@ function showSubmitFormOnSubmitClick() {
   $submitForm.show();
 }
 
-$body.on("click", "#nav-submit", showSubmitFormOnSubmitClick)
+$body.on("click", "#nav-submit", showSubmitFormOnSubmitClick);

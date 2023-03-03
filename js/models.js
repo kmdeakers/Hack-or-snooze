@@ -25,7 +25,8 @@ class Story {
 
   getHostName() {
     // UNIMPLEMENTED: complete this function!
-    return "hostname.com";
+    const url = new URL(this.url);
+    return url.hostname;
   }
 }
 
@@ -92,7 +93,7 @@ class StoryList {
     const {storyId, title, author, url, username, createdAt} = response.data.story;  
 
     const story = new Story({storyId, title, author, url, username, createdAt}); 
-        this.stories.unshift(story);
+    this.stories.unshift(story);
 
     return story;
   }
