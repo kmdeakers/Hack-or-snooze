@@ -23,9 +23,21 @@ function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
 
   const hostName = story.getHostName();
+  let hiddenProp = "hidden";
+  if (currentUser) {
+    hiddenProp = "";
+  }
+
+  let starClass = "bi-star";
+  const favoriteIds = currentUser.favorites.map(story => story.storyId);
+
+  if (favoriteIds.includes(story.storyId)) {
+    starClass = "bi-star-fill";
+    }
+
   return $(`
       <li id="${story.storyId}">
-        <i class="bi bi-star hidden"></i>
+        <i class="bi ${starClass} ${hiddenProp}"></i>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -46,12 +58,18 @@ function putStoriesOnPage() {
   // loop through all of our stories and generate HTML for them
   for (let story of storyList.stories) {
     const $story = generateStoryMarkup(story);
+
     $allStoriesList.append($story);
   }
 
   $allStoriesList.show();
 }
-//expand doc string
+
+function starUserFavorites (favorites) {
+  console.debug("starUserFavorites");
+
+}
+
 /** Create new story from form data. Create new story markup and 
  * append to "#all-stories-list"
  */
@@ -67,7 +85,8 @@ async function createStoryAndAddToPage(event) {
   }
 
   const newStory = await storyList.addStory(currentUser, storyDataInput);
-  const newStoryMarkup = generateStoryMarkup(newStory);
+  let newStoryMarkup = generateStoryMarkup(newStory);
+
   $("#all-stories-list").prepend(newStoryMarkup)
   console.log("storyList", storyList);
 
@@ -79,3 +98,5 @@ async function createStoryAndAddToPage(event) {
 // pass new Story instance in generateStoryMarkup
 //TODO: updated .stories-container 
 $('#submit-form').on('submit', createStoryAndAddToPage); 
+
+

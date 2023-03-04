@@ -33,6 +33,7 @@ function updateNavOnLogin() {
   console.debug("updateNavOnLogin");
   $(".main-nav-links").show();
   $navSubmit.show();
+  $navFavorites.show();
   $navLogin.hide();
   $navLogOut.show();
   $navUserProfile.text(`${currentUser.username}`).show();
@@ -55,3 +56,19 @@ function addStarsToUI() {
   $(".bi-star").show();
 }
 
+async function getAndShowFavorites() {
+  console.debug("getAndShowFavorites");
+  $allStoriesList.empty();
+
+  const favoriteStories = currentUser.favorites;
+  
+  for (let story of favoriteStories) {
+    const $story = generateStoryMarkup(story);
+
+    $allStoriesList.append($story);
+  }
+  $allStoriesList.show();
+}
+
+
+$navFavorites.on('click', getAndShowFavorites);
